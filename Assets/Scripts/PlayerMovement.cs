@@ -10,14 +10,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
 
     
-
     [HideInInspector] public Vector2 inputVector;
     [HideInInspector] public bool isRunning;
    
     public bool canMove;
 
-    [SerializeField] private float movementSpeed_x;
-    [SerializeField] private float movementSpeed_y;
+    [SerializeField] private float movementSpeed_horizontal;
+    [SerializeField] private float movementSpeed_vertical;
    
     [SerializeField] private float chillspeedlimit;
     [SerializeField] private float happyspeedlimit;
@@ -42,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         canMove = true;
-        happySpeed = movementSpeed_x;
-        chillSpeed = movementSpeed_x / 1.2f;
+        happySpeed = movementSpeed_horizontal;
+        chillSpeed = movementSpeed_horizontal / 1.2f;
     }
 
     private void Update()
@@ -54,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        TranslateMovement();
+        AddForceMovement();
     }
 
     private void ReadVector2Value(ref Vector2 value)
@@ -63,13 +62,11 @@ public class PlayerMovement : MonoBehaviour
             value = inputActions.Movement.Move.ReadValue<Vector2>();
     }
 
-    private void TranslateMovement()
+    private void AddForceMovement()
     {
-        if (rb.velocity.x < speedlimit && rb.velocity.x > -speedlimit)
+        if (rb.velocity.z < speedlimit && rb.velocity.z > -speedlimit)
         {
-            rb.AddForce(new Vector3(inputVector.x * movementSpeed_x * Time.deltaTime, 
-                0f, 
-                inputVector.y * movementSpeed_y * Time.deltaTime), ForceMode.Acceleration);
+            rb.AddForce(new Vector3(-inputVector.y * movementSpeed_vertical * Time.deltaTime, 0f, inputVector.x * movementSpeed_horizontal * Time.deltaTime), ForceMode.Acceleration);
         }
     }
     
@@ -89,18 +86,18 @@ public class PlayerMovement : MonoBehaviour
         if (AudioManager.instance.mood == Mood.chill)
         {
             speedlimit = chillspeedlimit;
-            movementSpeed_x = chillSpeed;
+            movementSpeed_horizontal = chillSpeed;
         }
         else if (AudioManager.instance.mood == Mood.happy)
         {
             speedlimit = happyspeedlimit;
-            movementSpeed_x = happySpeed;
+            movementSpeed_horizontal = happySpeed;
         }
     }
     
     void StopMovement()
     {
-        movementSpeed_x = Mathf.Lerp(movementSpeed_x, 0f, .1f);
+        movementSpeed_horizontal = Mathf.Lerp(movementSpeed_horizontal, 0f, .1f);
         isRunning = false;
     }
 
