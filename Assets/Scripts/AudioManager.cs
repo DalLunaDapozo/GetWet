@@ -2,8 +2,9 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
-public enum Mood { chill, happy}
+public enum Mood { chill, punk, none}
 
 public class AudioManager : MonoBehaviour
 {
@@ -117,24 +118,38 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public void SwitchMusic()
+
+    public IEnumerator SwitchMusic()
     {
-        if (musics[0].audioSource.isPlaying)
+        if (mood == Mood.chill)
         {
-            mood = Mood.happy;
+            mood = Mood.none;
             musics[0].audioSource.Stop();
+
+            sounds[1].audioSource.Play();
+            yield return new WaitForSeconds(sounds[1].audioSource.clip.length);
+
+            sounds[2].audioSource.Play();
+            yield return new WaitForSeconds(sounds[2].audioSource.clip.length);
+
             musics[1].audioSource.Play();
-            Debug.Log(AudioManager.instance.mood);
+            mood = Mood.punk;
         }
-        else if (musics[1].audioSource.isPlaying)
+        else if (mood == Mood.punk)
         {
-            mood = Mood.chill;
+            mood = Mood.none;
             musics[1].audioSource.Stop();
+
+            sounds[1].audioSource.Play();
+            yield return new WaitForSeconds(sounds[1].audioSource.clip.length);
+
+            sounds[2].audioSource.Play();
+            yield return new WaitForSeconds(sounds[2].audioSource.clip.length);
+
             musics[0].audioSource.Play();
-            Debug.Log(AudioManager.instance.mood);
+            mood = Mood.chill;
         }
     }
-
 
 }
 

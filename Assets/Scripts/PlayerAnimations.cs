@@ -7,10 +7,13 @@ public class PlayerAnimations : MonoBehaviour
 
     private Animator anim;
 
+    private GameObject trails;
+    
     private void Awake()
     {
         movement = GetComponentInParent<PlayerMovement>();
         anim = GetComponentInParent<Animator>();
+        trails = GameObject.Find("Trails");
     }
 
     private void Start()
@@ -22,7 +25,15 @@ public class PlayerAnimations : MonoBehaviour
     {
         RotateSprite();
         anim.SetBool("Moving", movement.CheckIfMoving());
-        
+
+        if (AudioManager.instance.mood == Mood.chill || AudioManager.instance.mood == Mood.none)
+        {
+            trails.SetActive(false);
+        }
+        else if (AudioManager.instance.mood == Mood.punk)
+        {
+            trails.SetActive(true);
+        }
     }
 
     private void RotateSprite()

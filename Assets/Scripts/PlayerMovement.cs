@@ -83,12 +83,12 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CheckMusicMood()
     {
-        if (AudioManager.instance.mood == Mood.chill)
+        if (AudioManager.instance.mood == Mood.chill || AudioManager.instance.mood == Mood.none)
         {
             speedlimit = chillspeedlimit;
             movementSpeed_horizontal = chillSpeed;
         }
-        else if (AudioManager.instance.mood == Mood.happy)
+        else if (AudioManager.instance.mood == Mood.punk)
         {
             speedlimit = happyspeedlimit;
             movementSpeed_horizontal = happySpeed;

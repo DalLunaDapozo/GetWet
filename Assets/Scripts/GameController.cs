@@ -17,12 +17,12 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.PlayMusic("Lofi_prueba");
-        AudioManager.instance.Play("Rain_1");
+        //AudioManager.instance.Play("Rain_1");
     }
 
 
     private void ChangeMusic(InputAction.CallbackContext context) 
     {
-        AudioManager.instance.SwitchMusic();
+        AudioManager.instance.StartCoroutine("SwitchMusic");
     }
 }
