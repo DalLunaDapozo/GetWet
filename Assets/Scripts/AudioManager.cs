@@ -1,10 +1,7 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System.Collections;
-
-public enum Mood { chill, punk, none}
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
@@ -57,15 +54,10 @@ public class AudioManager : MonoBehaviour
 
     }
 
-
-    private void Update()
-    {
-
-    }
-
     public void Play(string name, float pitch = (1), float volume = (0f))
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
+        //Sound s = sounds.Find(s => s.name == name);  
 
         if (s == null)
         {
@@ -89,6 +81,12 @@ public class AudioManager : MonoBehaviour
         s.audioSource.pitch = pitch;
         s.audioSource.Stop();
     }
+    
+    private Sound FindSounds()
+    {
+        return Array.Find(sounds, sound => sound.name == name);
+    }
+
     public void PlayMusic(string name)
     {
 

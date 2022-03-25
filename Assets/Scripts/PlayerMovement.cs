@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private PlayerControls inputActions;
     private Animator anim;
-
     
     [HideInInspector] public Vector2 inputVector;
     [HideInInspector] public bool isRunning;
@@ -25,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private float chillSpeed;
     private float speedlimit;
 
+    [SerializeField] private GameController gameController;
+
     private void Awake()
     {
 
@@ -35,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
         inputActions = new PlayerControls();
         inputActions.Movement.Enable();
+
+        
 
     }
 
@@ -100,5 +103,14 @@ public class PlayerMovement : MonoBehaviour
         movementSpeed_horizontal = Mathf.Lerp(movementSpeed_horizontal, 0f, .1f);
         isRunning = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "End")
+        {
+            gameController.ShowEnding();
+        }
+    }
+
 
 }

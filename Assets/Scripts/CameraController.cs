@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
@@ -27,8 +28,14 @@ public class CameraController : MonoBehaviour
         }
         else if (AudioManager.instance.mood == Mood.punk)
         {
-            transposer.m_FollowOffset.x = punkOffset;
+            StartCoroutine(TransposeCamera());
             transposer.m_XDamping = punkDamping;
         }
+    }
+    
+    IEnumerator TransposeCamera()
+    {
+        transposer.m_FollowOffset.x = Mathf.Lerp(transposer.m_FollowOffset.x, punkOffset, .001f);
+        yield return new WaitForSeconds(0f);
     }
 }
