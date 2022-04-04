@@ -20,7 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float chillspeedlimit;
     [SerializeField] private float happyspeedlimit;
 
-    private float happySpeed;
+    [SerializeField] private float speedMultiplierWhenPunk;
+
+    private float punkSpeed;
     private float chillSpeed;
     private float speedlimit;
 
@@ -44,14 +46,16 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         canMove = true;
-        happySpeed = movementSpeed_horizontal;
-        chillSpeed = movementSpeed_horizontal / 1.2f;
+    
+        punkSpeed = movementSpeed_horizontal * speedMultiplierWhenPunk;
+        chillSpeed = movementSpeed_horizontal;
     }
 
     private void Update()
     {
         ReadVector2Value(ref inputVector);
         CheckMusicMood();
+
     }
 
     private void FixedUpdate()
@@ -94,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         else if (AudioManager.instance.mood == Mood.punk)
         {
             speedlimit = happyspeedlimit;
-            movementSpeed_horizontal = happySpeed;
+            movementSpeed_horizontal = punkSpeed;
         }
     }
     

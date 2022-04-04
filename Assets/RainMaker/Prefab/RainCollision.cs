@@ -13,17 +13,27 @@ namespace DigitalRuby.RainMaker
         private static readonly Color32 color = new Color32(255, 255, 255, 255);
         private readonly List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
+        private ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime;
+
         public ParticleSystem RainExplosion;
         public ParticleSystem RainParticleSystem;
 
         private void Start()
         {
-
+            velocityOverLifetime = RainParticleSystem.velocityOverLifetime;
         }
 
         private void Update()
         {
+            if (AudioManager.instance.mood == Mood.chill || AudioManager.instance.mood == Mood.none)
+            {
+                velocityOverLifetime.yMultiplier = -50f;
 
+            }
+            else if (AudioManager.instance.mood == Mood.punk)
+            {
+                velocityOverLifetime.yMultiplier = -10f;
+            }
         }
 
         private void Emit(ParticleSystem p, ref Vector3 pos)

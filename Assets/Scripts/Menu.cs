@@ -3,9 +3,26 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+
+    private bool firstTime;
+
+    private void Awake()
+    {
+        firstTime = false;
+    }
+
+    private void Start()
+    {
+        if (!firstTime)
+        {
+            PlayerPrefs.DeleteAll();
+        }
+        firstTime = true;
+    }
+
     public void StartGame()
     {
-        SceneController.LoadScene("Test", 1f ,1f );
+        SceneController.LoadScene("Gameplay", 1f ,1f );
     }
 
     public void Quit()

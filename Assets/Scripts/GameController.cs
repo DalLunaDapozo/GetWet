@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        mood = Mood.chill;
+        
         inputActions = new PlayerControls();
         inputActions.Movement.Enable();
 
@@ -42,10 +44,12 @@ public class GameController : MonoBehaviour
         float playTime = timeElapsedInEachMood.Sum();
 
         if (timeElapsedInEachMood[0] > playTime / 2)
-            Debug.Log("Final Chill");
+            SceneController.LoadScene("EndingChill", 1f, 1f);
         else
-            Debug.Log("Final Punk");
+            SceneController.LoadScene("EndingPunk", 1f, 1f);
 
     }
+
+ 
 
 }

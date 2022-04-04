@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 2d4af6853d552634abdc87cbe9eec30d
   - enabled: 1
-    path: Assets/Scenes/Test.unity
+    path: Assets/Scenes/Gameplay.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/EndingPunk.unity
+    guid: 93c28dadf07fbd14fbf4c7fe634e0ec2
+  - enabled: 1
+    path: Assets/Scenes/EndingChill.unity
+    guid: 8a3849402c5341443b444d7a73883ac0
   m_configObjects: {}
